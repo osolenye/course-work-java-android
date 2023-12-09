@@ -2,7 +2,6 @@
     <string name="app_name">kursach3</string>
 
 
-
     <string-array name="roles">
         <item>owner</item>
         <item>waiter</item>
