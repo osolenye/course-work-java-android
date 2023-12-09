@@ -41,7 +41,6 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
 
-
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,8 +56,16 @@ public class LoginActivity extends AppCompatActivity {
                                     query.addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            User user;
                                             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                                User user = snapshot.getValue(User.class);
+                                                user = snapshot.getValue(User.class);
+
+                                                String role = user.getRole();
+
+                                                if (role.equals("owner")) {
+                                                    Intent intent = new Intent(LoginActivity.this, OwnerActivity.class);
+                                                    startActivity(intent);
+                                                }
                                             }
 
 
@@ -69,7 +76,6 @@ public class LoginActivity extends AppCompatActivity {
 
                                         }
                                     });
-
 
 
                                 } else {
