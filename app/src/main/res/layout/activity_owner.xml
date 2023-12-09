@@ -6,4 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".OwnerActivity">
 
+    <Button
+        android:id="@+id/btn_create_cafe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="210dp"
+        android:text="create"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_see_cafes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:text="my cafes"
+        app:layout_constraintStart_toStartOf="@+id/btn_create_cafe"
+        app:layout_constraintTop_toBottomOf="@+id/btn_create_cafe" />
 </androidx.constraintlayout.widget.ConstraintLayout>
