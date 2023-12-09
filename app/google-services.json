@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "131930904395",
+    "firebase_url": "https://kursach-223f8-default-rtdb.firebaseio.com",
+    "project_id": "kursach-223f8",
+    "storage_bucket": "kursach-223f8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:131930904395:android:878f11ab2c5906944aface",
+        "android_client_info": {
+          "package_name": "com.example.kursach"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRKxxce_NET6lFZXd-SYVkrS6s_ebq_YU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:131930904395:android:f63791ca01a7a39e4aface",
+        "android_client_info": {
+          "package_name": "com.example.kursach3"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRKxxce_NET6lFZXd-SYVkrS6s_ebq_YU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
