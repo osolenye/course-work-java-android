@@ -1,4 +1,4 @@
-package com.example.kursach3;
+package com.example.kursach3.owner;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,11 +9,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.kursach3.R;
 import com.example.kursach3.models.Cafe;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class CafeCreateActivity extends AppCompatActivity {
@@ -41,19 +43,23 @@ public class CafeCreateActivity extends AppCompatActivity {
                 String password = et_password.getText().toString();
                 String email = user.getEmail();
 
+                DatabaseReference cafesRef = FirebaseDatabase.getInstance().getReference("Cafes");
+                String cafeKey = cafesRef.push().getKey();
+
                 Cafe cafe = new Cafe(name, password, email);
-                FirebaseDatabase.getInstance().getReference("Cafes")
-                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                        .setValue(cafe).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(CafeCreateActivity.this, "created a cafe", Toast.LENGTH_SHORT).show();
-                                } else{
-                                    Toast.makeText(CafeCreateActivity.this, "error creating a cafe", Toast.LENGTH_SHORT).show();
-                                }
+
+                if (cafeKey != null) {
+                    cafesRef.child(cafeKey).setValue(cafe).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(CafeCreateActivity.this, "created a new cafe", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(CafeCreateActivity.this, "error creating a cafe", Toast.LENGTH_SHORT).show();
                             }
-                        });
+                        }
+                    });
+                }
 
             }
         });

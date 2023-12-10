@@ -1,4 +1,4 @@
-package com.example.kursach3;
+package com.example.kursach3.owner;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.kursach3.R;
 import com.example.kursach3.models.Cafe;
 
 import java.util.ArrayList;

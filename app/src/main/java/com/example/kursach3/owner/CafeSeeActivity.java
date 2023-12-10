@@ -1,4 +1,4 @@
-package com.example.kursach3;
+package com.example.kursach3.owner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.kursach3.R;
 import com.example.kursach3.models.Cafe;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
