@@ -6,5 +6,6 @@
         <item>owner</item>
         <item>waiter</item>
         <item>cook</item>
+        <item>admin</item>
     </string-array>
 </resources>
