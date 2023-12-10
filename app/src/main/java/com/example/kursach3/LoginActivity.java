@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import com.example.kursach3.models.User;
 import com.example.kursach3.owner.OwnerActivity;
+import com.example.kursach3.waiter.SearchCafeActivity;
+import com.example.kursach3.waiter.WaiterActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -66,6 +68,14 @@ public class LoginActivity extends AppCompatActivity {
                                                 if (role.equals("owner")) {
                                                     Intent intent = new Intent(LoginActivity.this, OwnerActivity.class);
                                                     startActivity(intent);
+                                                } else if (role.equals("waiter")) {
+                                                    if (user.getCafe().equals("none")) {
+                                                        Intent intent = new Intent(LoginActivity.this, SearchCafeActivity.class);
+                                                        startActivity(intent);
+                                                    } else {
+                                                        Intent intent = new Intent(LoginActivity.this, WaiterActivity.class);
+                                                        startActivity(intent);
+                                                    }
                                                 }
                                             }
 

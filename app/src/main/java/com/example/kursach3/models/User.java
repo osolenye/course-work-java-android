@@ -7,7 +7,7 @@ import com.google.firebase.database.IgnoreExtraProperties;
 @IgnoreExtraProperties
 @Keep
 public class User {
-    String email, role;
+    String email, role, cafe;
 
     public String getEmail() {
         return email;
@@ -28,8 +28,17 @@ public class User {
     public User() {
     }
 
-    public User(String email, String role) {
+    public String getCafe() {
+        return cafe;
+    }
+
+    public void setCafe(String cafe) {
+        this.cafe = cafe;
+    }
+
+    public User(String email, String role, String cafe) {
         this.email = email;
         this.role = role;
+        this.cafe = cafe;
     }
 }
