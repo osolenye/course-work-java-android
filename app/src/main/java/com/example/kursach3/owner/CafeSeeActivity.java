@@ -2,6 +2,7 @@ package com.example.kursach3.owner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -49,6 +50,8 @@ public class CafeSeeActivity extends AppCompatActivity {
                     cafes.add(cafe);
                     // user содержит данные пользователя, где поле fieldName равно desiredValue
                 }
+
+
                 ListView lv_cafes = findViewById(R.id.lv_cafes);
                 CafesAdapter cafesAdapter = new CafesAdapter(getApplicationContext(), cafes);
                 lv_cafes.setAdapter(cafesAdapter);
@@ -56,6 +59,9 @@ public class CafeSeeActivity extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Toast.makeText(CafeSeeActivity.this, position + "", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(CafeSeeActivity.this, CafeDetailsActivity.class);
+                        intent.putExtra("name", cafes.get(position).getName());
+                        startActivity(intent);
                     }
                 });
             }
