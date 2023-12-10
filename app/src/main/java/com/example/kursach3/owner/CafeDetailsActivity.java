@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -22,6 +24,8 @@ import java.util.ArrayList;
 
 public class CafeDetailsActivity extends AppCompatActivity {
     ListView lv_tables;
+    Button btn_create_table;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +35,14 @@ public class CafeDetailsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String cafeName = intent.getStringExtra("name");
         ArrayList<Table> tables = new ArrayList<Table>();
+        btn_create_table = findViewById(R.id.btn_create_table);
+        Toast.makeText(this, cafeName, Toast.LENGTH_SHORT).show();
+        lv_tables = findViewById(R.id.lv_tables);
 
 
-        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("Users");
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("Tables");
 
-        Query query = usersRef.orderByChild("fieldName").equalTo("desiredValue");
+        Query query = usersRef.orderByChild("cafeName").equalTo(cafeName);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -45,19 +52,32 @@ public class CafeDetailsActivity extends AppCompatActivity {
                     tables.add(table);
                     // user содержит данные пользователя, где поле fieldName равно desiredValue
                 }
+                TablesAdapter tablesAdapter = new TablesAdapter(getApplicationContext(), tables);
+                lv_tables.setAdapter(tablesAdapter);
+
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 // Обработка ошибок, если они возникли
+                Toast.makeText(CafeDetailsActivity.this, "mat' ebal", Toast.LENGTH_SHORT).show();
             }
         });
 
 
 
 
-        lv_tables = findViewById(R.id.lv_tables);
-        TablesAdapter tablesAdapter = new TablesAdapter(getApplicationContext(), tables);
-        lv_tables.setAdapter(tablesAdapter);
+
+
+
+
+        btn_create_table.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CafeDetailsActivity.this, CreateTableActivity.class);
+                intent.putExtra("name", cafeName);
+                startActivity(intent);
+            }
+        });
     }
 }

@@ -26,7 +26,7 @@ public class TablesAdapter extends BaseAdapter {
     public TablesAdapter(Context context, ArrayList<Table> tables) {
         this.context = context;
         this.tables = tables;
-        this.inflater = inflater;
+        inflater = LayoutInflater.from(context);
     }
 
     @Override
@@ -42,7 +42,10 @@ public class TablesAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = inflater.inflate(R.layout.activity_lv_cafes, null);
-        TextView tv_table_name = convertView.findViewById(R.id.tv_table_name);
+        TextView tv_table_name = convertView.findViewById(R.id.tv_name_lv_cafes);
+        TextView tv_table_email = convertView.findViewById(R.id.tv_email_lv_cafes);
+        tv_table_name.setText(tables.get(position).getTableName());
+        tv_table_email.setText(tables.get(position).getCafeName());
         return convertView;
     }
 }
