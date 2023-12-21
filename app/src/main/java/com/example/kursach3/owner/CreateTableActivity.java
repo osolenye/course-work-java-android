@@ -39,6 +39,8 @@ public class CreateTableActivity extends AppCompatActivity {
                 Table table = new Table(tableName, cafeName);
                 String key = myRef.push().getKey();
                 myRef.child(key).setValue(table);
+                Intent intent = new Intent(CreateTableActivity.this, CafeSeeActivity.class);
+                startActivity(intent);
             }
         });
     }

@@ -11,10 +11,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.kursach3.R;
-import com.example.kursach3.models.Cafe;
+import com.example.kursach3.models.Food;
 import com.example.kursach3.models.Type;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,24 +22,28 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class TypesSeeActivty extends AppCompatActivity {
-    Button btn_create_type_activity;
+public class TypeDetailsActivity extends AppCompatActivity {
+    Intent intent;
+    String cafeName;
+    String typeName;
+    Button btn_create_food_activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_types_see_activty);
-
-        btn_create_type_activity = findViewById(R.id.btn_create_type_activity);
-        Intent intent = getIntent();
-        String cafeName = intent.getStringExtra("cafeName");
+        setContentView(R.layout.activity_type_details);
 
 
+        btn_create_food_activity = findViewById(R.id.btn_create_food_acitivity);
+        intent = getIntent();
+        cafeName = intent.getStringExtra("cafeName");
+        typeName = intent.getStringExtra("typeName");
 
 
-        ArrayList<Type> types= new ArrayList<Type>();
 
-        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("Types");
+        ArrayList<Food> foods= new ArrayList<Food>();
+
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("Food");
 
         Query query = usersRef.orderByChild("cafeName").equalTo(cafeName);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -49,23 +51,21 @@ public class TypesSeeActivty extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     // Обработка каждой записи
-                    Type type = snapshot.getValue(Type.class);
-                    types.add(type);
+                    Food food = snapshot.getValue(Food.class);
+                    if (food.getTypeName().equals(typeName)) {
+                        foods.add(food);
+                    }
                     // user содержит данные пользователя, где поле fieldName равно desiredValue
                 }
 
 
-                ListView lv_types = findViewById(R.id.lv_types);
-                TypesAdapter typesAdapter = new TypesAdapter(getApplicationContext(), types);
-                lv_types.setAdapter(typesAdapter);
-                lv_types.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                ListView lv_food = findViewById(R.id.lv_food);
+                FoodAdapter foodAdapter = new FoodAdapter(getApplicationContext(), foods);
+                lv_food.setAdapter(foodAdapter);
+                lv_food.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Toast.makeText(TypesSeeActivty.this, position + " " + types.get(position).getCafeName(), Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(TypesSeeActivty.this, TypeDetailsActivity.class);
-                        intent.putExtra("cafeName", types.get(position).getCafeName());
-                        intent.putExtra("typeName", types.get(position).getTypeName());
-                        startActivity(intent);
+                        Toast.makeText(TypeDetailsActivity.this, position + " " + foods.get(position).getCafeName(), Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -78,11 +78,12 @@ public class TypesSeeActivty extends AppCompatActivity {
 
 
 
-        btn_create_type_activity.setOnClickListener(new View.OnClickListener() {
+        btn_create_food_activity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(TypesSeeActivty.this, CreateTypeActivity.class);
+                Intent intent = new Intent(TypeDetailsActivity.this, CreateFoodActivity.class);
                 intent.putExtra("cafeName", cafeName);
+                intent.putExtra("typeName", typeName);
                 startActivity(intent);
             }
         });

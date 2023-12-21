@@ -21,6 +21,7 @@ public class CreateTypeActivity extends AppCompatActivity {
     EditText et_type_name;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("Types");
+    String cafeName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +29,7 @@ public class CreateTypeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_type);
 
         Intent intent = getIntent();
-        String cafeName = intent.getStringExtra("name");
+        cafeName = intent.getStringExtra("cafeName");
 
 
         btn_create_type = findViewById(R.id.btn_create_type);
@@ -43,6 +44,8 @@ public class CreateTypeActivity extends AppCompatActivity {
                 String key = myRef.push().getKey();
                 myRef.child(key).setValue(type);
                 Toast.makeText(CreateTypeActivity.this, "added a new type", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(CreateTypeActivity.this, CafeDetailsActivity.class);
+                startActivity(intent);
             }
         });
     }
