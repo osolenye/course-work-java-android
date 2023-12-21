@@ -25,6 +25,7 @@ import java.util.ArrayList;
 public class CafeDetailsActivity extends AppCompatActivity {
     ListView lv_tables;
     Button btn_create_table;
+    Button btn_type;
 
 
     @Override
@@ -38,6 +39,7 @@ public class CafeDetailsActivity extends AppCompatActivity {
         btn_create_table = findViewById(R.id.btn_create_table);
         Toast.makeText(this, cafeName, Toast.LENGTH_SHORT).show();
         lv_tables = findViewById(R.id.lv_tables);
+        btn_type = findViewById(R.id.btn_type);
 
 
         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("Tables");
@@ -76,6 +78,16 @@ public class CafeDetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(CafeDetailsActivity.this, CreateTableActivity.class);
                 intent.putExtra("name", cafeName);
+                startActivity(intent);
+            }
+        });
+
+        btn_type.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent intent = new Intent(CafeDetailsActivity.this, CreateTypeActivity.class);
+                Intent intent = new Intent(CafeDetailsActivity.this, TypesSeeActivty.class);
+                intent.putExtra("cafeName", cafeName);
                 startActivity(intent);
             }
         });
