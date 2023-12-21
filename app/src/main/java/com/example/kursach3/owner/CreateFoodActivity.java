@@ -45,8 +45,6 @@ public class CreateFoodActivity extends AppCompatActivity {
                 String key = myRef.push().getKey();
                 myRef.child(key).setValue(food);
                 Toast.makeText(CreateFoodActivity.this, "added a new food", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(CreateFoodActivity.this, TypeDetailsActivity.class);
-                startActivity(intent);
             }
         });
     }

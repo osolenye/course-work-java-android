@@ -44,8 +44,6 @@ public class CreateTypeActivity extends AppCompatActivity {
                 String key = myRef.push().getKey();
                 myRef.child(key).setValue(type);
                 Toast.makeText(CreateTypeActivity.this, "added a new type", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(CreateTypeActivity.this, CafeDetailsActivity.class);
-                startActivity(intent);
             }
         });
     }
