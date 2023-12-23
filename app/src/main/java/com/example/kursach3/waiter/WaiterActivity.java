@@ -161,6 +161,10 @@ public class WaiterActivity extends AppCompatActivity {
                             @Override
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                 Toast.makeText(WaiterActivity.this, position + " " + tables.get(position).getCafeName(), Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(WaiterActivity.this, WaiterTableFunctionsActivity.class);
+                                intent.putExtra("tableName", tables.get(position).getTableName());
+                                intent.putExtra("cafeName", tables.get(position).getCafeName());
+                                startActivity(intent);
                             }
                         });
                     }
