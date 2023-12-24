@@ -58,7 +58,6 @@ public class CafeSeeActivity extends AppCompatActivity {
                 lv_cafes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Toast.makeText(CafeSeeActivity.this, position + " " + cafes.get(position).getName(), Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(CafeSeeActivity.this, CafeDetailsActivity.class);
                         intent.putExtra("name", cafes.get(position).getName());
                         startActivity(intent);

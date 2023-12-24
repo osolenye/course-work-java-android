@@ -12,8 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="212dp"
         android:ems="10"
+        android:hint="email"
         android:inputType="text"
-        android:text="email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -24,8 +24,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:ems="10"
+        android:hint="password"
         android:inputType="text"
-        android:text="password"
         app:layout_constraintStart_toStartOf="@+id/et_login_email"
         app:layout_constraintTop_toBottomOf="@+id/et_login_email" />
 
@@ -52,13 +52,13 @@
 
     <Spinner
         android:id="@+id/spinner_roles"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="1dp"
         android:layout_marginTop="25dp"
         android:layout_marginEnd="1dp"
+        android:entries="@array/roles"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_login_password"
-        android:entries="@array/roles"/>
+        app:layout_constraintTop_toBottomOf="@+id/et_login_password" />
 </androidx.constraintlayout.widget.ConstraintLayout>

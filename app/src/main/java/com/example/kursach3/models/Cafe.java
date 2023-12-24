@@ -7,7 +7,17 @@ import com.google.firebase.database.IgnoreExtraProperties;
 @IgnoreExtraProperties
 @Keep
 public class Cafe {
-    String name, password, email;
+    String name, email;
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    String key;
 
     public String getName() {
         return name;
@@ -17,13 +27,7 @@ public class Cafe {
         this.name = name;
     }
 
-    public String getPassword() {
-        return password;
-    }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public String getEmail() {
         return email;
@@ -36,9 +40,9 @@ public class Cafe {
     public Cafe() {
     }
 
-    public Cafe(String name, String password, String email) {
+    public Cafe(String name, String email, String key) {
         this.name = name;
-        this.password = password;
         this.email = email;
+        this.key = key;
     }
 }

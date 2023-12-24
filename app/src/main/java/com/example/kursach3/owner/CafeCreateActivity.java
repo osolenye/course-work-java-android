@@ -19,7 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class CafeCreateActivity extends AppCompatActivity {
-    EditText et_name, et_password;
+    EditText et_name;
     Button btn_create;
     FirebaseAuth auth;
     FirebaseUser user;
@@ -30,7 +30,7 @@ public class CafeCreateActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cafe_create);
 
         et_name = findViewById(R.id.et_name);
-        et_password = findViewById(R.id.et_password);
+//        et_password = findViewById(R.id.et_password);
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         btn_create= findViewById(R.id.btn_create);
@@ -40,13 +40,12 @@ public class CafeCreateActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String name = et_name.getText().toString();
-                String password = et_password.getText().toString();
                 String email = user.getEmail();
 
                 DatabaseReference cafesRef = FirebaseDatabase.getInstance().getReference("Cafes");
                 String cafeKey = cafesRef.push().getKey();
 
-                Cafe cafe = new Cafe(name, password, email);
+                Cafe cafe = new Cafe(name, email, cafeKey);
 
                 if (cafeKey != null) {
                     cafesRef.child(cafeKey).setValue(cafe).addOnCompleteListener(new OnCompleteListener<Void>() {
