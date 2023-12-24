@@ -11,6 +11,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.kursach3.R;
+import com.example.kursach3.models.FoodOrder;
 import com.example.kursach3.models.Type;
 import com.example.kursach3.owner.TypeDetailsActivity;
 import com.example.kursach3.owner.TypesAdapter;
@@ -32,6 +33,7 @@ public class FoodOrderCreate extends AppCompatActivity {
     String cafeName;
     FirebaseAuth auth;
     FirebaseUser user;
+    String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +46,11 @@ public class FoodOrderCreate extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+        email = user.getEmail();
+        updateOrdered();
 
 
-        ArrayList<Type> types= new ArrayList<Type>();
+        ArrayList<Type> types = new ArrayList<Type>();
 
         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("Types");
 
@@ -96,6 +100,84 @@ public class FoodOrderCreate extends AppCompatActivity {
                 // Обработка ошибок, если они возникли
                 Log.e("FirebaseError", "Error: " + databaseError.getMessage());
             }
+        });
+
+
+        ArrayList<FoodOrder> foodOrders = new ArrayList<FoodOrder>();
+
+        DatabaseReference usersRef1 = FirebaseDatabase.getInstance().getReference().child("FoodOrders");
+
+        Query query1 = usersRef1.orderByChild("userName").equalTo(email);
+        query1.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    // Обработка каждой записи
+                    FoodOrder foodOrder = snapshot.getValue(FoodOrder.class);
+                    foodOrders.add(foodOrder);
+
+                    ListView lv_waiter_food_chosen = findViewById(R.id.lv_waiter_food_chosen);
+                    WaiterFoodChosenAdapter waiterFoodChosenAdapter = new WaiterFoodChosenAdapter(getApplicationContext(), foodOrders);
+                    lv_waiter_food_chosen.setAdapter(waiterFoodChosenAdapter);
+                    lv_waiter_food_chosen.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        }
+                    });
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Обработка ошибок, если они возникли
+                Log.e("FirebaseError", "Error: " + databaseError.getMessage());
+            }
+
+        });
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // В этом методе можно выполнить какие-то действия при возвращении на активность
+        updateOrdered();
+        // Например, обновить данные, вызвать методы и т.д.
+    }
+
+    public void updateOrdered() {
+        ArrayList<FoodOrder> foodOrders = new ArrayList<FoodOrder>();
+
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("FoodOders");
+
+        Query query = usersRef.orderByChild("userName").equalTo(email);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    // Обработка каждой записи
+                    FoodOrder foodOrder = snapshot.getValue(FoodOrder.class);
+                    foodOrders.add(foodOrder);
+
+                    ListView lv_waiter_food_chosen = findViewById(R.id.lv_waiter_food_chosen);
+                    WaiterFoodChosenAdapter waiterFoodChosenAdapter = new WaiterFoodChosenAdapter(getApplicationContext(), foodOrders);
+                    lv_waiter_food_chosen.setAdapter(waiterFoodChosenAdapter);
+                    lv_waiter_food_chosen.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        }
+                    });
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Обработка ошибок, если они возникли
+                Log.e("FirebaseError", "Error: " + databaseError.getMessage());
+            }
+
         });
     }
 }

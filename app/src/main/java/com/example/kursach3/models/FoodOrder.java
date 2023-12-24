@@ -41,4 +41,6 @@ public class FoodOrder {
         this.foodName = foodName;
         this.userName = userName;
     }
+
+    public FoodOrder(){}
 }

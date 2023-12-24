@@ -19,9 +19,11 @@
         android:layout_width="0dp"
         android:layout_height="360dp"
         android:layout_marginStart="1dp"
+        android:layout_marginTop="7dp"
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lv_waiter_type_choose" />
 </androidx.constraintlayout.widget.ConstraintLayout>
