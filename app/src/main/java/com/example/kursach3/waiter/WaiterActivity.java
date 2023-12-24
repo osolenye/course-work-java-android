@@ -117,6 +117,7 @@ public class WaiterActivity extends AppCompatActivity {
 
     FirebaseUser user;
     FirebaseAuth auth;
+    static String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,7 +127,7 @@ public class WaiterActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
 
-        String email = user.getEmail();
+        email = user.getEmail();
 
         ArrayList<User> users = new ArrayList<>();
 

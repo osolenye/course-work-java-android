@@ -67,7 +67,7 @@ public class WaiterTableFunctionsActivity extends AppCompatActivity {
                 }
                 cafeName = users.get(0).getCafe();
 
-                DatabaseReference ordersRef = FirebaseDatabase.getInstance().getReference().child("Orders");
+                DatabaseReference ordersRef = FirebaseDatabase.getInstance().getReference().child("FoodOrders");
                 Query ordersQuery = ordersRef.orderByChild("tableName").equalTo(tableName);
                 ordersQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -106,7 +106,10 @@ public class WaiterTableFunctionsActivity extends AppCompatActivity {
         btn_waiter_add_food.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(WaiterTableFunctionsActivity.this, FoodOrderCreate.class);
+                intent.putExtra("cafeName", cafeName);
+                intent.putExtra("tableName", tableName);
+                startActivity(intent);
             }
         });
 
