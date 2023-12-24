@@ -10,6 +10,16 @@ public class Type {
     String typeName;
     String cafeName;
 
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    String key;
+
     public String getTypeName() {
         return typeName;
     }
@@ -29,8 +39,9 @@ public class Type {
     public Type() {
     }
 
-    public Type(String typeName, String cafeName) {
+    public Type(String typeName, String cafeName, String key) {
         this.typeName = typeName;
         this.cafeName = cafeName;
+        this.key = key;
     }
 }

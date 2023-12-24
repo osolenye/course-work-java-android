@@ -40,8 +40,8 @@ public class CreateTypeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String typeName = et_type_name.getText().toString();
-                Type type = new Type(typeName, cafeName);
                 String key = myRef.push().getKey();
+                Type type = new Type(typeName, cafeName, key);
                 myRef.child(key).setValue(type);
                 Toast.makeText(CreateTypeActivity.this, "added a new type", Toast.LENGTH_SHORT).show();
             }
