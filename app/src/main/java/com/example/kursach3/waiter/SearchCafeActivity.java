@@ -47,8 +47,6 @@ public class SearchCafeActivity extends AppCompatActivity {
         user = auth.getCurrentUser();
 
 
-
-
         btn_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
