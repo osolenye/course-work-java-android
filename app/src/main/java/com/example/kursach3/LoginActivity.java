@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.kursach3.cock.CookActivity;
 import com.example.kursach3.models.User;
 import com.example.kursach3.owner.OwnerActivity;
 import com.example.kursach3.waiter.SearchCafeActivity;
@@ -72,8 +73,17 @@ public class LoginActivity extends AppCompatActivity {
                                                     if (user.getCafe().equals("none")) {
                                                         Intent intent = new Intent(LoginActivity.this, SearchCafeActivity.class);
                                                         startActivity(intent);
-                                                    } else {
+                                                    }
+                                                    else {
                                                         Intent intent = new Intent(LoginActivity.this, WaiterActivity.class);
+                                                        startActivity(intent);
+                                                    }
+                                                } else if (role.equals("cook")) {
+                                                    if (user.getCafe().equals("none")) {
+                                                        Intent intent = new Intent(LoginActivity.this, com.example.kursach3.cock.SearchCafeActivity.class);
+                                                        startActivity(intent);
+                                                    } else {
+                                                        Intent intent = new Intent(LoginActivity.this, CookActivity.class);
                                                         startActivity(intent);
                                                     }
                                                 }

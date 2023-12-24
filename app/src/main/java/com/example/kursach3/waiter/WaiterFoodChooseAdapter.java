@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.kursach3.R;
 import com.example.kursach3.models.Food;
@@ -22,6 +23,7 @@ public class WaiterFoodChooseAdapter extends BaseAdapter {
     LayoutInflater inflater;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("FoodOrders");
+
 
     public WaiterFoodChooseAdapter(Context context, ArrayList<Food> foods) {
         this.context = context;
@@ -58,9 +60,13 @@ public class WaiterFoodChooseAdapter extends BaseAdapter {
                 String tableName = FoodListActivity.tableName;
                 String foodName = foods.get(position).getFoodName();
                 String email = WaiterActivity.email;
-                FoodOrder foodOrder = new FoodOrder(cafeName, tableName, foodName, email);
+
+
+
                 String key = myRef.push().getKey();
+                FoodOrder foodOrder = new FoodOrder(cafeName, tableName, foodName, email, key);
                 myRef.child(key).setValue(foodOrder);
+                Toast.makeText(context, "nigga: " + key, Toast.LENGTH_SHORT).show();
             }
         });
 
