@@ -36,8 +36,8 @@ public class CreateTableActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String tableName = et_table_name.getText().toString();
-                Table table = new Table(tableName, cafeName);
                 String key = myRef.push().getKey();
+                Table table = new Table(tableName, cafeName, key);
                 myRef.child(key).setValue(table);
             }
         });

@@ -8,11 +8,21 @@
 
     <TextView
         android:id="@+id/tv_table_name"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="7dp"
         android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_owner_table_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="33dp"
+        android:text="delete"
+        app:layout_constraintStart_toEndOf="@+id/tv_table_name"
+        app:layout_constraintTop_toTopOf="parent"
+        android:focusable="false"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

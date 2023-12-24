@@ -9,6 +9,15 @@ import com.google.firebase.database.IgnoreExtraProperties;
 public class Table {
     String tableName;
     String cafeName;
+    String key;
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
 
     public String getTableName() {
         return tableName;
@@ -29,8 +38,9 @@ public class Table {
     public Table() {
     }
 
-    public Table(String tableName, String cafeName) {
+    public Table(String tableName, String cafeName, String key) {
         this.tableName = tableName;
         this.cafeName = cafeName;
+        this.key = key;
     }
 }
