@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -30,6 +31,7 @@ public class WaiterFoodChosenAdapter extends BaseAdapter {
     LayoutInflater inflater;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("FoodOrders");
+    String key;
 
     public WaiterFoodChosenAdapter(Context context, ArrayList<FoodOrder> orderedFoods) {
         this.context = context;
@@ -57,49 +59,42 @@ public class WaiterFoodChosenAdapter extends BaseAdapter {
         convertView = inflater.inflate(R.layout.lv_waiter_food_chosen, null);
         TextView tv_waiter_food_chosen = convertView.findViewById(R.id.tv_waiter_food_chosen);
         tv_waiter_food_chosen.setText(orderedFoods.get(position).getFoodName());
+        key = orderedFoods.get(position).getKey();
 
         Button btn_waiter_food_chosen_delete = convertView.findViewById(R.id.btn_waiter_food_chosen_delete);
         btn_waiter_food_chosen_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String cafeName = orderedFoods.get(position).getCafeName();
-                String foodName = orderedFoods.get(position).getFoodName();
-                String tableName = FoodListActivity.tableName;
-                String email = WaiterActivity.email;
-
-                // Удаление из списка orderedFoods
                 orderedFoods.remove(position);
                 notifyDataSetChanged(); // Обновление списка после удаления
 
-                // Удаление из базы данных
-                Query query = myRef.orderByChild("foodName").equalTo(foodName);
+
+                // Создание запроса для поиска записи по определенному полю
+                Query query = myRef.orderByChild("key").equalTo(key);
+
                 query.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             FoodOrder foodOrder = snapshot.getValue(FoodOrder.class);
-                            if (
-                                foodOrder.getTableName().equals(tableName)&&
-                                foodOrder.getUserName().equals(email)) {
-                                snapshot.getRef().removeValue()
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void aVoid) {
-                                                // Успешное удаление из базы данных
-                                                // Дополнительная обработка при необходимости
-                                            }
-                                        })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                // Обработка ошибок при удалении из базы данных
-                                                // При необходимости можно добавить дополнительные действия
-                                            }
-                                        });
-                            }
+                            snapshot.getRef().removeValue()
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            // Успешное удаление из базы данных
+                                            // Дополнительная обработка при необходимости
+                                            Toast.makeText(context, "deleted an order with key: " + key, Toast.LENGTH_SHORT).show();
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            // Обработка ошибок при удалении из базы данных
+                                            // При необходимости можно добавить дополнительные действия
+                                        }
+                                    });
                         }
                     }
-
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
                         // Обработка ошибок при запросе к базе данных
@@ -107,9 +102,6 @@ public class WaiterFoodChosenAdapter extends BaseAdapter {
                 });
             }
         });
-
-        return convertView;
-    }
-
-
+            return convertView;
+        }
 }
