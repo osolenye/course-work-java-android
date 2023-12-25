@@ -59,6 +59,8 @@ public class WaiterFoodChosenAdapter extends BaseAdapter {
         convertView = inflater.inflate(R.layout.lv_waiter_food_chosen, null);
         TextView tv_waiter_food_chosen = convertView.findViewById(R.id.tv_waiter_food_chosen);
         tv_waiter_food_chosen.setText(orderedFoods.get(position).getFoodName());
+        TextView tv_waiter_food_chosen_status = convertView.findViewById(R.id.tv_waiter_food_chosen_status);
+        tv_waiter_food_chosen_status.setText(orderedFoods.get(position).getStatus());
         key = orderedFoods.get(position).getKey();
 
         Button btn_waiter_food_chosen_delete = convertView.findViewById(R.id.btn_waiter_food_chosen_delete);

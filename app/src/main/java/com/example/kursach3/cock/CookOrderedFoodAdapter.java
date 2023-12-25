@@ -66,6 +66,8 @@ public class CookOrderedFoodAdapter extends BaseAdapter {
         key = orderedFoods.get(position).getKey();
 
         Button btn_cook_ordered_food_start = convertView.findViewById(R.id.btn_cook_ordered_food_start);
+        Button btn_cook_ordered_food_cancel = convertView.findViewById(R.id.btn_cook_ordered_food_cancel);
+        Button btn_cook_ordered_food_done = convertView.findViewById(R.id.btn_cook_ordered_food_done);
         btn_cook_ordered_food_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,6 +83,79 @@ public class CookOrderedFoodAdapter extends BaseAdapter {
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             // Получение найденной записи и изменение другого поля
                             snapshot.getRef().child("status").setValue("yesCooking", new DatabaseReference.CompletionListener() {
+                                @Override
+                                public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                    if (error != null) {
+                                        // Обработка ошибки, если что-то пошло не так
+                                    } else {
+                                        // Значение успешно изменено
+                                    }
+                                }
+                            }); // Semicolon added here
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        // Обработка ошибок запроса, если не удалось получить данные
+                    }
+                });
+            }
+        });
+
+
+
+        btn_cook_ordered_food_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference myRef = database.getReference("FoodOrders");
+
+                // Создание запроса для поиска записи по определенному полю
+                Query query = myRef.orderByChild("key").equalTo(key);
+
+                query.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            // Получение найденной записи и изменение другого поля
+                            snapshot.getRef().child("status").setValue("noCooking", new DatabaseReference.CompletionListener() {
+                                @Override
+                                public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                    if (error != null) {
+                                        // Обработка ошибки, если что-то пошло не так
+                                    } else {
+                                        // Значение успешно изменено
+                                    }
+                                }
+                            }); // Semicolon added here
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        // Обработка ошибок запроса, если не удалось получить данные
+                    }
+                });
+            }
+        });
+
+
+        btn_cook_ordered_food_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference myRef = database.getReference("FoodOrders");
+
+                // Создание запроса для поиска записи по определенному полю
+                Query query = myRef.orderByChild("key").equalTo(key);
+
+                query.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            // Получение найденной записи и изменение другого поля
+                            snapshot.getRef().child("status").setValue("doneCooking", new DatabaseReference.CompletionListener() {
                                 @Override
                                 public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                                     if (error != null) {
